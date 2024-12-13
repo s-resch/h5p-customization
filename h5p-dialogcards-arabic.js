@@ -1,6 +1,9 @@
 // Declare the h5p elements you want to modify using their CSS selectors
 const h5pElements = ['.h5p-dialogcards-cardwrap-set'];
 
+// Declare the (nested) h5p class which you want to change the text for
+const h5pTextClassToChange = ['.h5p-dialogcards-card-text-area'];
+
 // Declare new font size for arabic text
 const newFontSize = '20pt';
 
@@ -15,9 +18,7 @@ function modifyH5PElements(h5pModify) {
 				// Check if the element contains arabic characters
 				if (containsArabic(element)) {
 					// Change the font size
-					let texts = element.querySelectorAll(
-						'.h5p-dialogcards-card-text-area'
-					);
+					let texts = element.querySelectorAll(h5pTextClassToChange[0]);
 					texts.forEach((text) => (text.style.fontSize = newFontSize));
 
 					// Listen for changes --> We need to set size back to default after dropping the word
@@ -27,9 +28,7 @@ function modifyH5PElements(h5pModify) {
 							if (mutation.attributeName === 'class') {
 								// As the card stack is lazily loaded,
 								// we have to access all elements again
-								let texts = element.querySelectorAll(
-									'.h5p-dialogcards-card-text-area'
-								);
+								let texts = element.querySelectorAll(h5pTextClassToChange[0]);
 								texts.forEach((text) => (text.style.fontSize = newFontSize));
 							}
 						});
